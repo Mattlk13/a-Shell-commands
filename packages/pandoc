@@ -8,14 +8,13 @@ packagename=${0##*/}
 curl -L https://github.com/jgm/pandoc/releases/download/3.10/pandoc-3.10.wasm.zip -o ~/tmp/pandok/pandoc.zip --create-dirs --silent
 echo uncompressing pandoc
 cd ~/tmp/pandok
-ls
 # use Wasm for unzip:
 if [ -f "$HOME/Documents/bin/unzip.wasm3" ]; then
-	echo using wasm: wasm ~/Documents/bin/unzip.wasm3 pandoc.zip
-	wasm ~/Documents/bin/unzip.wasm3 pandoc.zip
+	echo using wasm: wasm ~/Documents/bin/unzip.wasm3 ~/tmp/pandoc.zip
+	wasm ~/Documents/bin/unzip.wasm3 ~/tmp/pandok/pandoc.zip
 elif [ -f "$HOME/Documents/bin/unzip" ]; then
 	echo using wasm:
-	unzip pandoc.zip
+	wasm ~/Documents/bin/unzip ~/tmp/pandok/pandoc.zip
 else
 	echo You need to install unzip with \"pkg install zip\" first
 fi
