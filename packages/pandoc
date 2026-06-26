@@ -6,8 +6,9 @@ packagename=${0##*/}
 # download command:
 # the pkg command has already created ~/tmp/pandoc and we need to create the pandoc directory so we move one level down, with a different name:
 curl -L https://github.com/jgm/pandoc/releases/download/3.10/pandoc-3.10.wasm.zip -o ~/tmp/pandok/pandoc.zip --create-dirs --silent
-ls -R ~/tmp
+ls -lR ~/tmp
 cp ~/tmp/pandoc ~/tmp/pandoc.debug
+file ~/tmp/pandok/pandoc.zip
 echo uncompressing pandoc
 cd ~/tmp/pandok
 # use Wasm for unzip:
