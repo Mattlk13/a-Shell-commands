@@ -4,9 +4,10 @@
 packagename=${0##*/}
 
 # download command:
-curl -L https://github.com/jgm/pandoc/releases/download/3.10/pandoc-3.10.wasm.zip -o ~/tmp/pandoc.zip --create-dirs --silent
+# the pkg command has already created ~/tmp/pandoc and we need to create the pandoc directory so we move one level down, with a different name:
+curl -L https://github.com/jgm/pandoc/releases/download/3.10/pandoc-3.10.wasm.zip -o ~/tmp/pandok/pandoc.zip --create-dirs --silent
 echo uncompressing pandoc
-cd ~/tmp
+cd ~/tmp/pandok
 ls
 # use Wasm for unzip:
 if [ -f "$HOME/Documents/bin/unzip.wasm3" ]; then
@@ -20,7 +21,8 @@ else
 fi
 echo moving binary in place and installing man page
 mv pandoc/pandoc.wasm ~/Documents/bin/pandoc 
-rm -rf pandoc pandoc.zip
+cd -
+rm -rf ~/tmp/pandok
 chmod +x ~/Documents/bin/$packagename
 # download man page
 curl -L https://raw.githubusercontent.com/holzschu/a-Shell-commands/master/man/man1/$packagename.1 -o ~/Library/man/man1/$packagename.1 --create-dirs --silent
