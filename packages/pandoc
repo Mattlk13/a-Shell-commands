@@ -1,0 +1,24 @@
+#! /bin/sh
+# Default install file for packages:
+
+packagename=${0##*/}
+
+# download command:
+curl -L https://github.com/jgm/pandoc/releases/download/3.10/pandoc-3.10.wasm.zip ~/tmp/pandoc.zip --create-dirs --silent
+pushd ~/tmp
+# use Wasm for unzip:
+if [ -f "$HOME/Documents/bin/unzip.wasm3" ]; then
+	wasm ~/Documents/bin/unzip.wasm3 pandoc.zip
+elif [ -f "$HOME/Documents/bin/unzip" ]; then
+	unzip pandoc.zip
+fi
+mv pandoc/pandoc.wasm ~/Documents/bin/pandoc 
+rm -rf pandoc pandoc.zip
+popd
+chmod +x ~/Documents/bin/$packagename
+# download man page
+curl -L https://raw.githubusercontent.com/holzschu/a-Shell-commands/master/man/man1/$packagename.1 -o ~/Library/man/man1/$packagename.1 --create-dirs --silent
+# refresh man database
+mandocdb ~/Library/man
+# download uninstall information:
+curl -L https://raw.githubusercontent.com/holzschu/a-Shell-commands/master/uninstall/$packagename -o ~/Documents/.pkg/$packagename --create-dirs --silent
